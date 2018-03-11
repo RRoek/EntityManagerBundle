@@ -1,0 +1,26 @@
+{
+    "name": "rroek/entity-manager-bundle",
+    "description": "A small bundle that give you abstract bases to create your Symfony's Entity Managers",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rroek",
+            "email": "contact@lemonways.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/orm": "^2.5"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Rroek\\EntityManagerBundle\\": "src/Rroek/EntityManagerBundle"
+        }
+    }
+}
