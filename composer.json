@@ -9,7 +9,6 @@
             "email": "contact@lemonways.fr"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "php": ">=5.6",
         "doctrine/doctrine-bundle": "^1.6",
@@ -20,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rroek\\EntityManagerBundle\\": "src/Rroek/EntityManagerBundle"
+            "RRoek\\EntityManagerBundle\\": "src/RRoek/EntityManagerBundle"
         }
     }
 }

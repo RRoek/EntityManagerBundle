@@ -1,6 +1,6 @@
 <?php
 
-namespace RRoek\EntityManagerBundle\Model\Util;
+namespace RRoek\EntityManagerBundle\Util;
 
 /**
  * Trait ValorizedEntityArrayTrait.

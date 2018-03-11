@@ -1,9 +1,8 @@
-###Features
+# EntityManagerBundle
+### Features
 
 - Give you simple interfaces & abstraction to build yours Symfony's Entity Managers
 
-
-# EntityManagerBundle
 
 **Table of Contents**
 
@@ -11,25 +10,25 @@
 
 [TOC]
 
-##Introduction
+## Introduction
 This small bundle give you the ability to build generic Entity Managers for you Symfony Application (2.7 ~ .3.4).
 The goal is to make managers for all of your entities like [Sensio Symfony Best Practices](http://https://symfony.com/doc/current/best_practices/index.html "Sension Symfony Best Practices")  recommend it.
 
-###Advantages
+### Advantages
 Make a manager for an entity permit to lighten you Controller. All the scope (CRUD Create Read Update Delete) of your entity will be managed behind your Entity Manager. 
 
 This is useful for big projects or even small/medium projects. Every creation will call the manager like every select, update or delete.
 
-##Goal
+## Goal
 It's frequent that a team want to make entity managers, but have some technical difficulties.
 This bundle give you an abstraction to make all your Entity Managers to the same format and already with CRUD methods.
 
-##Use
-###Activate bundle
+## Use
+### Activate bundle
 To use it, simply `composer require rroek/entity-manager-bundle`
 and enable it :
 in AppKernel.php :
-
+```php
      /**
          * @return array
          */
@@ -39,8 +38,8 @@ in AppKernel.php :
     		[...]
     		new Rroek\EntityManagerBundle\RroekEntityManagerBundle(),
     		[...]
-
-###Make your Entity Manager
+```
+### Make your Entity Manager
 For this example, we will take "MyPersonalEntity" class wich is an *Doctrine Entity* in our Symfony Project. Its class repository is "MyPersonalEntityRepository". Waw you didn't expect it. No ?
 
 Our Entity will have an id, a label, a relation with another entity & getters/setters for it.
@@ -68,7 +67,7 @@ In :
 
 ------------
 
-
+```php
     <?php
     
     namespace Acme\MyBundle\Manager;
@@ -115,9 +114,11 @@ In :
         }
     }
     
-
+```
 ------------
 
+Declare for easy use, your manager as a Symfony service :
+```yaml
     services:
     [...]
     # ------ ------ ------ ------ ------
@@ -130,14 +131,13 @@ In :
                 - '@doctrine.orm.entity_manager'
             calls:
                 - [setValidatorService, ['@validator']]
-Declare for easy use, your manager as a Symfony service :
-
+```
 ------------
 
 
 And its all ! Your entity manager is created, it have allready CRUD methods :
 
-
+```php
     [...]
         /**
          * Returns entity-item with given id.
@@ -189,10 +189,13 @@ And its all ! Your entity manager is created, it have allready CRUD methods :
          * @throws EntityNotFoundException
          */
         public function delete($id, $flush = false){...}
+	
+```
 
+------------
 And some convenient methods :
 
-
+```php
     [...]
     
         /**
@@ -230,27 +233,29 @@ And some convenient methods :
          * @return array
          */
         public function getAssociationNames(){...}
-    
+  ```  
+------------
 #### Caution
 Be careful a manager only manage one and only one Entity (Entity with its repository).
 
-##Bonus
+## Bonus
 
 You will find 2 generic Traits for your entities creation.
 IdTrait and LabelTrait.
 To use it :
 
-
+```php
     [...]
     use Rroek\EntityManagerBundle\Model\Entity\IdTrait;
     use Rroek\EntityManagerBundle\Model\Entity\LabelTrait;
     
     [...]
+    ```
 it permit to use same declaration of id or label. 
 Content :
 
 
-    
+    ```php
         /**
          * @var int
          *
@@ -284,7 +289,7 @@ Content :
     
             return $this;
         }
-
+```
 ------------
 
 
@@ -292,7 +297,7 @@ And :
 
 ------------
 
-
+```php
 
     
         /**
@@ -325,4 +330,7 @@ And :
         {
             return $this->label;
         }
-##Enjoy !
+```
+------------
+
+## Enjoy !
