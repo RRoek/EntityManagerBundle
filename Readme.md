@@ -11,11 +11,11 @@
 [TOC]
 
 ## Introduction
-This small bundle give you the ability to build generic Entity Managers for you Symfony Application (2.7 ~ .3.4).
+This small bundle give you the ability to build generic Entity Managers for your Symfony Application (2.7 ~ .3.4).
 The goal is to make managers for all of your entities like [Sensio Symfony Best Practices](http://https://symfony.com/doc/current/best_practices/index.html "Sension Symfony Best Practices")  recommend it.
 
 ### Advantages
-Make a manager for an entity permit to lighten you Controller. All the scope (CRUD Create Read Update Delete) of your entity will be managed behind your Entity Manager. 
+Make a manager for an entity permit to lighten your Controller. All the scope (CRUD Create Read Update Delete) of your entity will be managed behind your Entity Manager. 
 
 This is useful for big projects or even small/medium projects. Every creation will call the manager like every select, update or delete.
 
