@@ -75,7 +75,7 @@ In :
     use Rroek\EntityManagerBundle\Model\Manager\AbstractBaseEntityManager;
     use Rroek\EntityManagerBundle\Model\Manager\EntityManagerInterface as PersonalEntityManagerInterface;
     use Doctrine\ORM\EntityManagerInterface;
-    use Marqueo\ServiceProductMyPersonalEntityManagerBundle\Entity\MyPersonalEntity;
+    use Acme\ServiceProductMyPersonalEntityManagerBundle\Entity\MyPersonalEntity;
     
     /**
      * Class MyPersonalEntityManager.
