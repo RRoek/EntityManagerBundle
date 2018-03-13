@@ -75,7 +75,7 @@ In :
     use Rroek\EntityManagerBundle\Model\Manager\AbstractBaseEntityManager;
     use Rroek\EntityManagerBundle\Model\Manager\EntityManagerInterface as PersonalEntityManagerInterface;
     use Doctrine\ORM\EntityManagerInterface;
-    use Acme\ServiceProductMyPersonalEntityManagerBundle\Entity\MyPersonalEntity;
+    use Acme\MyBundle\Entity\MyPersonalEntity;
     
     /**
      * Class MyPersonalEntityManager.
@@ -91,7 +91,7 @@ In :
         {
             parent::__construct($entityManager);
             $this->setEntityClass(MyPersonalEntity::class);//Use your Entity ClassName
-            $this->setEntityClassNamespace('Acme\MyBundle\Entity\MyPersonalEntityManager');//Use Namespace of your Entity
+            $this->setEntityClassNamespace('Acme\MyBundle\Entity\MyPersonalEntity');//Use Namespace of your Entity
         }
     
         /**
