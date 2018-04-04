@@ -29,6 +29,9 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     /** @var ValidatorInterface */
     private $_validatorService;
 
+    //---- --- Used Traits : --- ----
+
+    use ValorizedEntityArrayTrait;
 
     //---- --- Constructors : --- ----
     /**
