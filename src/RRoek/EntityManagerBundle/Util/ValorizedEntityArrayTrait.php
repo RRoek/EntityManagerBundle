@@ -17,7 +17,7 @@ trait ValorizedEntityArrayTrait
      *
      * @return mixed
      */
-    protected function _setValue(array &$data, $property, $object)
+    protected function setValue(array &$data, $property, $object)
     {
         $data[$property] = $object;
 
@@ -34,7 +34,7 @@ trait ValorizedEntityArrayTrait
      *
      * @return mixed
      */
-    protected function _getValue(array $data, $property, $default = '')
+    protected function getValue(array $data, $property, $default = '')
     {
         return array_key_exists($property, $data) ? $data[$property] : $default;
     }

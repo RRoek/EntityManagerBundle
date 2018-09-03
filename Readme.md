@@ -102,13 +102,13 @@ In :
          *
          * @return MyPersonalEntityManager
          */
-        protected function _bind(MyPersonalEntity $entity, array $data)
+        protected function bind(MyPersonalEntity $entity, array $data)
         {
 			/*this function get an existing instance of our Entity, or a new instance (see create & update method on abstraction)
 			All the data to set/update are stocked on $data array.
 			*/
-            $entity->setLabel($this->_getValue($data, 'label'));//We call the entity property setter and give "label" key of $data as value
-            $entity->setLinkToAnotherEntity($this->_getValue($data, 'anotherEntity', null));//Here the same but for a joined Entity like ManyToOne or OneToOne (if you set no data for key 'anotherEntity' '' will be placed instead so for a join precise null to default value)
+            $entity->setLabel($this->getValue($data, 'label'));//We call the entity property setter and give "label" key of $data as value
+            $entity->setLinkToAnotherEntity($this->getValue($data, 'anotherEntity', null));//Here the same but for a joined Entity like ManyToOne or OneToOne (if you set no data for key 'anotherEntity' '' will be placed instead so for a join precise null to default value)
     
             return $entity;
         }
@@ -250,12 +250,12 @@ To use it :
     use Rroek\EntityManagerBundle\Model\Entity\LabelTrait;
     
     [...]
-    ```
+```
 it permit to use same declaration of id or label. 
 Content :
 
 
-    ```php
+```php
         /**
          * @var int
          *

@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use RRoek\EntityManagerBundle\Model\Manager\EntityManagerInterface as PersonalEntityManagerInterface;
 use RRoek\EntityManagerBundle\Util\ConstraintViolationUtil;
 use RRoek\EntityManagerBundle\Util\ValorizedEntityArrayTrait;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * Class AbstractBaseEntityManager.
@@ -18,16 +19,16 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
 {
     //---- --- Private & Protected Properties : --- ----
     /** @var EntityManagerInterface */
-    private $_entityManager;
+    private $entityManager;
 
     /** @var string */
-    private $_entityClass;
+    private $entityClass;
 
     /** @var string */
-    private $_entityClassNamespace;
+    private $entityClassNamespace;
 
     /** @var ValidatorInterface */
-    private $_validatorService;
+    private $validatorService;
 
     //---- --- Used Traits : --- ----
 
@@ -41,7 +42,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->_entityManager = $this->_refreshEntityManager($entityManager);
+        $this->entityManager = $this->refreshEntityManager($entityManager);
     }
 
     
@@ -54,7 +55,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getValidatorService()
     {
-        return $this->_validatorService;
+        return $this->validatorService;
     }
 
     /**
@@ -62,7 +63,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function setValidatorService($validatorService)
     {
-        $this->_validatorService = $validatorService;
+        $this->validatorService = $validatorService;
     }
 
     /**
@@ -70,7 +71,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getEntityClass()
     {
-        return $this->_entityClass;
+        return $this->entityClass;
     }
 
     /**
@@ -78,7 +79,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function setEntityClass($entityClass)
     {
-        $this->_entityClass = $entityClass;
+        $this->entityClass = $entityClass;
     }
 
     /**
@@ -88,7 +89,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getEntityClassNamespace()
     {
-        return new $this->_entityClassNamespace();
+        return new $this->entityClassNamespace();
     }
 
     /**
@@ -96,7 +97,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function setEntityClassNamespace($entityClassNamespace)
     {
-        $this->_entityClassNamespace = $entityClassNamespace;
+        $this->entityClassNamespace = $entityClassNamespace;
     }
 
 
@@ -108,7 +109,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      *
      * @return EntityManager
      */
-    private function _refreshEntityManager($entityManager)
+    private function refreshEntityManager($entityManager)
     {
         if (!$entityManager->isOpen()) {
             $entityManager = $entityManager::create(
@@ -125,7 +126,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      *
      * @return null
      */
-    protected function _createNotFoundException()
+    protected function createNotFoundException()
     {
         throw new EntityNotFoundException();
     }
@@ -151,9 +152,9 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getEntityManager()
     {
-        $this->_entityManager = $this->_refreshEntityManager($this->_entityManager);
+        $this->entityManager = $this->refreshEntityManager($this->entityManager);
 
-        return $this->_entityManager;
+        return $this->entityManager;
     }
 
     /**
@@ -200,7 +201,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     public function create(array $data, $persist = true, $flush = false)
     {
         //Create new entity & valid fieds format :
-        $entity                  = $this->_bind($this->getEntityClassNamespace(), $data);
+        $entity                  = $this->bind($this->getEntityClassNamespace(), $data);
         $constraintViolationList = $this->getValidatorService()->validate($entity);
 
         //Check allright :
@@ -218,26 +219,27 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     /**
      * Update the entity-item with given id.
      *
-     * @param int   $id
+     * @param int $id
      * @param array $data
-     * @param bool  $flush
-     * @param bool  $validate
+     * @param bool $flush
+     * @param bool $validate
      *
      * @return object
+     * @throws EntityNotFoundException
      */
     public function update($id, array $data, $flush = false, $validate = false)
     {
         $entity = $this->read($id);//Get entity object
 
         if (!$entity) {
-            return $this->_createNotFoundException();
+            return $this->createNotFoundException();
         }
 
         //Update fields :
-        $this->_bind($entity, $data);
+        $this->bind($entity, $data);
 
         if ($validate) {
-            $validator               = $this->_validatorService;
+            $validator               = $this->validatorService;
             $constraintViolationList = $validator->validate($entity);
 
             if (count($constraintViolationList) > 0) {
@@ -268,7 +270,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
         $entity = $this->read($id);
 
         if (!$entity) {
-            return $this->_createNotFoundException();
+            return $this->createNotFoundException();
         }
 
         $this->getEntityManager()->remove($entity);
@@ -304,7 +306,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     }
 
     /**
-     * @return \Doctrine\ORM\Mapping\ClassMetadata
+     * @return ClassMetadata
      */
     public function getClassMetadata()
     {

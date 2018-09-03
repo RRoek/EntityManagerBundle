@@ -17,7 +17,7 @@ class ConstraintViolationUtil
      *
      * @return null
      */
-    protected static function _createValidatorException(string $message)
+    protected static function createValidatorException(string $message)
     {
         throw new ValidatorException($message);
     }
@@ -29,7 +29,7 @@ class ConstraintViolationUtil
      *
      * @return string The violation as string
      */
-    protected static function _constraintViolationListToString(array $constraintViolationMessagesList)
+    protected static function constraintViolationListToString(array $constraintViolationMessagesList)
     {
         return implode('. ', $constraintViolationMessagesList);
     }
@@ -46,8 +46,8 @@ class ConstraintViolationUtil
             $constraintViolationMessagesList[] = $error->getMessage();
         }
 
-        return self::_createValidatorException(
-            self::_constraintViolationListToString($constraintViolationMessagesList)
+        return self::createValidatorException(
+            self::constraintViolationListToString($constraintViolationMessagesList)
         );
     }
 }
