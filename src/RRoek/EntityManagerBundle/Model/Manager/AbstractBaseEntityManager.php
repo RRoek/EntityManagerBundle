@@ -22,7 +22,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     private $entityManager;
 
     /** @var string */
-    private $entityClass;
+    private $entityClassName;
 
     /** @var ValidatorInterface */
     private $validatorService;
@@ -36,15 +36,15 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     /**
      * AbstractBaseEntityManager constructor.
      *
+     * @param string $entityClassName
      * @param EntityManagerInterface $entityManager
      * @param ValidatorInterface $validatorService
-     * @param string $entityClass
      */
-    public function __construct(EntityManagerInterface $entityManager, ValidatorInterface $validatorService, string $entityClass)
+    public function __construct(string $entityClassName, EntityManagerInterface $entityManager, ValidatorInterface $validatorService)
     {
+        $this->entityClassName      = $entityClassName;
         $this->entityManager        = $this->refreshEntityManager($entityManager);
         $this->validatorService     = $validatorService;
-        $this->entityClass          = $entityClass;
     }
 
     //---- --- Getters & Setters : --- ----
@@ -59,17 +59,17 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     /**
      * @return string
      */
-    public function getEntityClass()
+    public function getEntityClassName()
     {
-        return $this->entityClass;
+        return $this->entityClassName;
     }
 
     /**
-     * @param string $entityClass
+     * @param string $entityClassName
      */
-    public function setEntityClass($entityClass)
+    public function setEntityClassName($entityClassName)
     {
-        $this->entityClass = $entityClass;
+        $this->entityClassName = $entityClassName;
     }
 
     /**
@@ -77,9 +77,9 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      *
      * @return mixed
      */
-    public function getNewEntityClass()
+    public function getNewEntityClassName()
     {
-        return new $this->entityClass();
+        return new $this->entityClassName();
     }
 
     //---- --- Private & Protected Methods : --- ----
@@ -145,7 +145,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getRepository()
     {
-        return $this->getEntityManager()->getRepository($this->getEntityClass());
+        return $this->getEntityManager()->getRepository($this->getEntityClassName());
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function read($id)
     {
-        return $this->getEntityManager()->find($this->getEntityClass(), $id);
+        return $this->getEntityManager()->find($this->getEntityClassName(), $id);
     }
 
     /**
@@ -167,7 +167,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function readAll()
     {
-        return $this->getEntityManager()->getRepository($this->getEntityClass())->findAll();
+        return $this->getEntityManager()->getRepository($this->getEntityClassName())->findAll();
     }
 
     /**
@@ -182,7 +182,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     public function create(array $data, $persist = true, $flush = false)
     {
         //Create new entity & valid fieds format :
-        $entity                  = $this->bind($this->getNewEntityClass(), $data);
+        $entity                  = $this->bind($this->getNewEntityClassName(), $data);
         $constraintViolationList = $this->getValidatorService()->validate($entity);
 
         //Check allright :
@@ -291,7 +291,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getClassMetadata()
     {
-        return $this->getEntityManager()->getClassMetadata($this->getNewEntityClass());
+        return $this->getEntityManager()->getClassMetadata($this->getNewEntityClassName());
     }
 
     /**

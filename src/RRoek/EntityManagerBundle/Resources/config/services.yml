@@ -2,5 +2,6 @@ services:
   RRoek\EntityManagerBundle\Model\Manager\AbstractBaseEntityManager:
       abstract: true
       arguments:
+          - "toReplaceWithYourClassNameSpace"
           - "@doctrine.orm.entity_manager"
           - "@validator"

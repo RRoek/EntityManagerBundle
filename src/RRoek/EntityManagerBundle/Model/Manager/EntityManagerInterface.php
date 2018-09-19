@@ -14,11 +14,11 @@ interface EntityManagerInterface
     /**
      * EntityManagerInterface constructor.
      *
+     * @param string $entityClass
      * @param DoctrineEntityManagerInterface $entityManager
      * @param ValidatorInterface $validatorService
-     * @param string $entityClass
      */
-    public function __construct(DoctrineEntityManagerInterface $entityManager, ValidatorInterface $validatorService, string $entityClass);
+    public function __construct(string $entityClassName, EntityManagerInterface $entityManager, ValidatorInterface $validatorService);
 
     /**
      * Returns entity-item with given id.
