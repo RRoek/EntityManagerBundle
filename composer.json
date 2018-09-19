@@ -13,7 +13,7 @@
         "php": ">=5.6",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
-        "symfony/validator": "^4.1"
+        "symfony/validator": "^3.4"
     },
     "config": {
         "sort-packages": true
