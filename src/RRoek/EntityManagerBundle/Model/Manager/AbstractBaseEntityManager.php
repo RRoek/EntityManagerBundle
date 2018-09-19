@@ -57,14 +57,6 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     }
 
     /**
-     * @param ValidatorInterface $validatorService
-     */
-    public function setValidatorService(ValidatorInterface $validatorService)
-    {
-        $this->validatorService = $validatorService;
-    }
-
-    /**
      * @return string
      */
     public function getEntityClass()

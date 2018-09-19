@@ -27,11 +27,6 @@ interface BaseEntityManagerInterface
     public function getEntityClassNamespace();
 
     /**
-     * @param string $entityClassNamespace
-     */
-    public function setEntityClassNamespace($entityClassNamespace);
-
-    /**
      * @return EntityManagerInterface object manager
      */
     public function getEntityManager();
@@ -40,11 +35,6 @@ interface BaseEntityManagerInterface
      * @return ValidatorInterface
      */
     public function getValidatorService();
-
-    /**
-     * @param mixed $validatorService
-     */
-    public function setValidatorService(ValidatorInterface $validatorService);
 
     /**
      * @return ObjectRepository related repository
