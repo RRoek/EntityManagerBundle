@@ -79,7 +79,7 @@ interface EntityManagerInterface
     /**
      * @return mixed
      */
-    public function getEntityClass();
+    public function getEntityClassName();
 
     /**
      * @return ObjectRepository
