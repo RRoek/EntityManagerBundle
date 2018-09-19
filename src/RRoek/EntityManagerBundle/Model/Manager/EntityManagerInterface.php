@@ -12,13 +12,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 interface EntityManagerInterface
 {
     /**
-     * EntityManagerInterface constructor.
+     * AbstractBaseEntityManager constructor.
      *
-     * @param string $entityClass
+     * @param string $entityClassName
      * @param DoctrineEntityManagerInterface $entityManager
      * @param ValidatorInterface $validatorService
      */
-    public function __construct(string $entityClassName, EntityManagerInterface $entityManager, ValidatorInterface $validatorService);
+    public function __construct(string $entityClassName, DoctrineEntityManagerInterface $entityManager, ValidatorInterface $validatorService);
 
     /**
      * Returns entity-item with given id.
