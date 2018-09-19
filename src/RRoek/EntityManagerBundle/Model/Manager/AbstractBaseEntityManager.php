@@ -77,7 +77,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      *
      * @return mixed
      */
-    public function getNewEntityClassName()
+    public function getNewEntityClass()
     {
         return new $this->entityClassName();
     }
@@ -182,7 +182,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     public function create(array $data, $persist = true, $flush = false)
     {
         //Create new entity & valid fieds format :
-        $entity                  = $this->bind($this->getNewEntityClassName(), $data);
+        $entity                  = $this->bind($this->getNewEntityClass(), $data);
         $constraintViolationList = $this->getValidatorService()->validate($entity);
 
         //Check allright :
@@ -291,7 +291,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getClassMetadata()
     {
-        return $this->getEntityManager()->getClassMetadata($this->getNewEntityClassName());
+        return $this->getEntityManager()->getClassMetadata($this->getNewEntityClass());
     }
 
     /**

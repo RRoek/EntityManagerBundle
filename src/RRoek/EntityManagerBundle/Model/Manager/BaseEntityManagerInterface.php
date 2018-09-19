@@ -14,17 +14,17 @@ interface BaseEntityManagerInterface
     /**
      * @return string
      */
-    public function getEntityClass();
+    public function getEntityClassName();
 
     /**
      * @param string $entityClass
      */
-    public function setEntityClass($entityClass);
+    public function setEntityClassName($entityClass);
 
     /**
      * @return mixed
      */
-    public function getEntityClassNamespace();
+    public function getNewEntityClass();
 
     /**
      * @return EntityManagerInterface object manager
