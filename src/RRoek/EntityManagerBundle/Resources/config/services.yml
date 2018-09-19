@@ -1,0 +1,6 @@
+services:
+  RRoek\EntityManagerBundle\Model\Manager\AbstractBaseEntityManager:
+      abstract: true
+      arguments:
+          - "@doctrine.orm.entity_manager"
+          - "@validator"

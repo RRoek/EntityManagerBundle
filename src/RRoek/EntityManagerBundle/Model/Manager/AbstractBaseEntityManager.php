@@ -24,9 +24,6 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     /** @var string */
     private $entityClass;
 
-    /** @var string */
-    private $entityClassNamespace;
-
     /** @var ValidatorInterface */
     private $validatorService;
 
@@ -35,20 +32,21 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     use ValorizedEntityArrayTrait;
 
     //---- --- Constructors : --- ----
+
     /**
      * AbstractBaseEntityManager constructor.
      *
      * @param EntityManagerInterface $entityManager
+     * @param ValidatorInterface $validatorService
+     * @param string $entityClass
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, ValidatorInterface $validatorService, string $entityClass)
     {
-        $this->entityManager = $this->refreshEntityManager($entityManager);
+        $this->entityManager        = $this->refreshEntityManager($entityManager);
+        $this->validatorService     = $validatorService;
+        $this->entityClass          = $entityClass;
     }
 
-    
-    //---- --- Used Traits : --- ----
-
-    
     //---- --- Getters & Setters : --- ----
     /**
      * @return ValidatorInterface
@@ -59,9 +57,9 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     }
 
     /**
-     * @param mixed $validatorService
+     * @param ValidatorInterface $validatorService
      */
-    public function setValidatorService($validatorService)
+    public function setValidatorService(ValidatorInterface $validatorService)
     {
         $this->validatorService = $validatorService;
     }
@@ -87,19 +85,10 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      *
      * @return mixed
      */
-    public function getEntityClassNamespace()
+    public function getNewEntityClass()
     {
-        return new $this->entityClassNamespace();
+        return new $this->entityClass();
     }
-
-    /**
-     * @param string $entityClassNamespace
-     */
-    public function setEntityClassNamespace($entityClassNamespace)
-    {
-        $this->entityClassNamespace = $entityClassNamespace;
-    }
-
 
     //---- --- Private & Protected Methods : --- ----
     /**
@@ -201,7 +190,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
     public function create(array $data, $persist = true, $flush = false)
     {
         //Create new entity & valid fieds format :
-        $entity                  = $this->bind($this->getEntityClassNamespace(), $data);
+        $entity                  = $this->bind($this->getNewEntityClass(), $data);
         $constraintViolationList = $this->getValidatorService()->validate($entity);
 
         //Check allright :
@@ -310,7 +299,7 @@ abstract class AbstractBaseEntityManager implements BaseEntityManagerInterface, 
      */
     public function getClassMetadata()
     {
-        return $this->getEntityManager()->getClassMetadata($this->getEntityClassNamespace());
+        return $this->getEntityManager()->getClassMetadata($this->getNewEntityClass());
     }
 
     /**

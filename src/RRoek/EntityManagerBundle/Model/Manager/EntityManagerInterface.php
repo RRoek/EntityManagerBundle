@@ -4,6 +4,7 @@ namespace RRoek\EntityManagerBundle\Model\Manager;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface as DoctrineEntityManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Interface EntityManagerInterface.
@@ -14,8 +15,10 @@ interface EntityManagerInterface
      * EntityManagerInterface constructor.
      *
      * @param DoctrineEntityManagerInterface $entityManager
+     * @param ValidatorInterface $validatorService
+     * @param string $entityClass
      */
-    public function __construct(DoctrineEntityManagerInterface $entityManager);
+    public function __construct(DoctrineEntityManagerInterface $entityManager, ValidatorInterface $validatorService, string $entityClass);
 
     /**
      * Returns entity-item with given id.
