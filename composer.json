@@ -11,10 +11,10 @@
     ],
     "require": {
         "php": ">=7.0",
-        "doctrine/doctrine-bundle": "^1.11",
-        "doctrine/orm": "^2.6",
-        "symfony/validator": "^4.3",
-        "symfony/translation": "^4.1"
+        "doctrine/doctrine-bundle": ">=1.11",
+        "doctrine/orm": ">=2.6",
+        "symfony/validator": ">=4.3",
+        "symfony/translation": ">=4.1"
     },
     "config": {
         "sort-packages": true
